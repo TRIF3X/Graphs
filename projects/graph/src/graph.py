@@ -61,13 +61,33 @@ class Graph:
             vert = stack.pop()
             if vert not in visited:
                 visited.add(vert)
-                print(visited)
-                print(stack)
                 stack.extend(self.vertices[vert] - visited)
-                print(f"after: {stack}")
                 orderVisited.append(vert)
 
         print(orderVisited)    
+
+    def depth_first_traversal_recursion(self, start):
+        pass
+
+    def breadth_first_search(self, start, target):
+        queue = [start]
+        visited = set()
+        found = False
+
+        while not found:
+            for vertex in self.vertices[queue[0]]:
+                if vertex == target:
+                    found = True
+                if vertex not in queue and vertex not in visited:
+                    queue.append(vertex)
+            vert = queue.pop(0)
+            visited.add(vert)
+        print(visited)
+
+
+
+    def depth_first_search(self, start, target):
+        pass
                 
 
 
@@ -76,5 +96,7 @@ class Graph:
 
 g = Graph()
 
-g.breadth_first_traversal('1')
-g.depth_first_traversal('1')
+# g.breadth_first_traversal('1')
+# g.depth_first_traversal('1')
+# g.depth_first_traversal_recursion('1')
+# g.breadth_first_search("1", "6")
