@@ -113,23 +113,23 @@ class Graph:
 
 
     def depth_first_search(self, start, target):
-        stack = [start]
+        stack = [[start]]
         visited = set()
-        found = False
-        visitOrder = []
+        
+        while stack:
+            path = stack.pop()
 
-        while not found:
-            if len(stack) == 0:
-                print('not found')
-                break
-            vert = stack.pop()
-            if vert == target:
-                found = True
-            if vert not in visited:
-                visited.add(vert)
-                stack.extend(self.vertices[vert] - visited)
-                visitOrder.append(vert)
-        print(visitOrder)
+            vertex = path[-1]
+
+            if vertex == target:
+                return path
+
+            elif vertex not in visited:
+                for next_ in self.vertices.get(vertex, []):
+                    new_path = list(path)
+                    new_path.append(next_)
+                    stack.append(new_path)
+                visited.add(vertex)
                 
 
 
@@ -141,6 +141,6 @@ g = Graph()
 # g.breadth_first_traversal('1')
 # g.depth_first_traversal('1')
 # g.depth_first_traversal_recursion('1')
-print(g.breadth_first_search("1", "10"))
-# g.depth_first_search("1", "7")
+# print(g.breadth_first_search("1", "15"))
+# print(g.depth_first_search("1", "5"))
 # g.depth_first_traversal_recursion('1')
