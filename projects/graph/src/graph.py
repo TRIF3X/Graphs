@@ -74,18 +74,15 @@ class Graph:
 
         print(orderVisited)    
 
-    def depth_first_traversal_recursion(self, start):
-        stack = [start]
-        visited = set()
-        orderVisited = []
-
-        while len(stack) > 0:
-            vert = stack.pop()
-            if vert not in visited:
-                visited.add(vert)
-                stack.extend(self.vertices[vert] - visited)
-                orderVisited.append(vert)
-                self.depth_first_traversal_recursion(vert)
+    def depth_first_traversal_recursion(self, start, visited = set(), orderedVisit = []):
+        visited.add(start)
+        if start not in orderedVisit:
+            orderedVisit.append(start)
+        for neighbor in self.vertices[start]:
+            if neighbor not in visited:
+                orderedVisit.append(neighbor)
+                self.depth_first_traversal_recursion(neighbor, visited, orderedVisit)
+        return orderedVisit
                 
 
 
@@ -140,7 +137,7 @@ g = Graph()
 
 # g.breadth_first_traversal('1')
 # g.depth_first_traversal('1')
-# g.depth_first_traversal_recursion('1')
+print(g.depth_first_traversal_recursion('1'))
 # print(g.breadth_first_search("1", "15"))
 # print(g.depth_first_search("1", "5"))
 # g.depth_first_traversal_recursion('1')
