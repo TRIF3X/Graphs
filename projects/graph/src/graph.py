@@ -52,8 +52,23 @@ class Graph:
 
         print(orderVisited)
 
-    def depth_first_traversal:
-        pass
+    def depth_first_traversal(self, start):
+        stack = [start]
+        visited = set()
+        orderVisited = []
+
+        while len(stack) > 0:
+            vert = stack.pop()
+            if vert not in visited:
+                visited.add(vert)
+                print(visited)
+                print(stack)
+                stack.extend(self.vertices[vert] - visited)
+                print(f"after: {stack}")
+                orderVisited.append(vert)
+
+        print(orderVisited)    
+                
 
 
             
@@ -62,3 +77,4 @@ class Graph:
 g = Graph()
 
 g.breadth_first_traversal('1')
+g.depth_first_traversal('1')
