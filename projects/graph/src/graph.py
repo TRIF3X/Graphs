@@ -10,10 +10,18 @@ class Graph:
             "1": {"2", "3"},
             "2": {"4", "5", "1"},
             "3": {"6", "7", "1"},
-            "4": {"2"},
-            "5": {"2"},
-            "6": {"3"},
-            "7": {"3"}
+            "4": {"2", "8", "9"},
+            "5": {"2", "10", "11"},
+            "6": {"3","12","13"},
+            "7": {"3", "14", "15"},
+            "8": {"4"},
+            "9": {"4"},
+            "10": {"5"},
+            "11": {"5"},
+            "12": {"6"},
+            "13": {"6"},
+            "14": {"7"},
+            "15": {"8"}
             }
 
     def add_vertex(self, key):
@@ -73,6 +81,7 @@ class Graph:
         queue = [start]
         visited = set()
         found = False
+        visitedOrder = []
 
         while not found:
             for vertex in self.vertices[queue[0]]:
@@ -82,12 +91,26 @@ class Graph:
                     queue.append(vertex)
             vert = queue.pop(0)
             visited.add(vert)
-        print(visited)
+            visitedOrder.append(vert)
+        print(visitedOrder)
 
 
 
     def depth_first_search(self, start, target):
-        pass
+        stack = [start]
+        visited = set()
+        found = False
+        visitOrder = []
+
+        while not found:
+            vert = stack.pop()
+            if vert == target:
+                found = True
+            if vert not in visited:
+                visited.add(vert)
+                stack.extend(self.vertices[vert] - visited)
+                visitOrder.append(vert)
+        print(visitOrder)
                 
 
 
@@ -99,4 +122,5 @@ g = Graph()
 # g.breadth_first_traversal('1')
 # g.depth_first_traversal('1')
 # g.depth_first_traversal_recursion('1')
-# g.breadth_first_search("1", "6")
+# g.breadth_first_search("1", "13")
+g.depth_first_search("1", "12")
