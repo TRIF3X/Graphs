@@ -75,24 +75,40 @@ class Graph:
         print(orderVisited)    
 
     def depth_first_traversal_recursion(self, start):
-        pass
+        stack = [start]
+        visited = set()
+        orderVisited = []
+
+        while len(stack) > 0:
+            vert = stack.pop()
+            if vert not in visited:
+                visited.add(vert)
+                stack.extend(self.vertices[vert] - visited)
+                orderVisited.append(vert)
+                self.depth_first_traversal_recursion(vert)
+                
+
 
     def breadth_first_search(self, start, target):
-        queue = [start]
+        queue = [[start]]
         visited = set()
-        found = False
-        visitedOrder = []
+        
+        while queue:
+            path = queue.pop(0)
 
-        while not found:
-            for vertex in self.vertices[queue[0]]:
-                if vertex == target:
-                    found = True
-                if vertex not in queue and vertex not in visited:
-                    queue.append(vertex)
-            vert = queue.pop(0)
-            visited.add(vert)
-            visitedOrder.append(vert)
-        print(visitedOrder)
+            vertex = path[-1]
+
+            if vertex == target:
+                return path
+
+            elif vertex not in visited:
+                for next_ in self.vertices.get(vertex, []):
+                    new_path = list(path)
+                    new_path.append(next_)
+                    queue.append(new_path)
+                visited.add(vertex)
+
+       
 
 
 
@@ -103,6 +119,9 @@ class Graph:
         visitOrder = []
 
         while not found:
+            if len(stack) == 0:
+                print('not found')
+                break
             vert = stack.pop()
             if vert == target:
                 found = True
@@ -122,5 +141,6 @@ g = Graph()
 # g.breadth_first_traversal('1')
 # g.depth_first_traversal('1')
 # g.depth_first_traversal_recursion('1')
-# g.breadth_first_search("1", "13")
-g.depth_first_search("1", "12")
+print(g.breadth_first_search("1", "10"))
+# g.depth_first_search("1", "7")
+# g.depth_first_traversal_recursion('1')
