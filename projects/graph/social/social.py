@@ -41,6 +41,11 @@ class SocialGraph:
 
         The number of users must be greater than the average number of friendships.
         """
+
+        # perform check if we can populate graph
+        if numUsers < avgFriendships:
+            print('need more users than friendships')
+
         # Reset graph
         self.lastID = 0
         self.users = {}
@@ -48,8 +53,48 @@ class SocialGraph:
         # !!!! IMPLEMENT ME
 
         # Add users
+        for x in range(0,numUsers):
+            self.addUser(x+1)
 
         # Create friendships
+        friendship = []
+        friends_left = numUsers * avgFriendships
+        total_friends = numUsers * avgFriendships
+
+        for i in range(numUsers):
+            if friends_left > 0:
+                friends = round(random.random() * (avgFriendships*2))
+                friends_left -= friends
+                friendship.append(friends)
+            elif friends <= 0:
+                friendship.append(0)
+
+        # ensure we get to the total number of friendships we need
+        while sum(friendship) < total_friends:
+            for i in range(len(friendship)):
+                if friends_left:
+                    friendship[i] += 1
+                    friends_left -= 1
+
+        while sum(friendship) > total_friends:
+            for j in range(len(friendship)):
+                if friends_left:
+                    friendship[j] -= 1
+                    friends_left += 1
+
+        for user in self.users:
+            if len(friendship) > user - 1:
+                if friendship[user - 1]:
+                    for new_friend_index in range(len(friendship)):
+                        if friendship[new_friend_index] == friendship[user - 1]:
+                            pass
+                        elif friendship[new_friend_index] and friendship[user - 1]:
+                            if new_friend_index+1 not in self.friendships[user]:
+                                self.addFriendship(user, new_friend_index+1)
+                                friendship[new_friend_index] -= 1
+                                friendship[user -1] -= 1
+ 
+
 
     def getAllSocialPaths(self, userID):
         """
