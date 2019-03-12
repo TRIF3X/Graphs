@@ -27,8 +27,8 @@ class SocialGraph:
         Create a new user with a sequential integer ID
         """
         self.lastID += 1  # automatically increment the ID to assign the new user
-        self.users[self.lastID] = User(name)
-        self.friendships[self.lastID] = set()
+        self.users[self.lastID] = User(name) #creates a user in self.users using the lastID created
+        self.friendships[self.lastID] = set() #creates a set for the user in self.friendships that will hold all connected friends
 
     def populateGraph(self, numUsers, avgFriendships):
         """
