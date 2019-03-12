@@ -107,6 +107,16 @@ class SocialGraph:
         """
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
+        stack = [[userID]]
+        while stack:
+            path = stack.pop()
+            vertex = path[-1]
+            if vertex not in visited:
+                for next_ in self.friendships.get(vertex, []):
+                    new_path = list(path)
+                    new_path.append(next_)
+                    stack.append(new_path)
+                visited[vertex] = path
         return visited
 
 
