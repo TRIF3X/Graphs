@@ -29,18 +29,18 @@ class Graph:
 
     # directed
     def add_edge(self, key, value):
-        if not self.vertices[key] and not self.vertices[value]:
-            raise KeyError
-        else:
+        if key in self.vertices and value in self.vertices:
             self.vertices[key].add(value)
+        else:
+            raise KeyError
 
     #undirected
     def add_edge_undirected(self, key, value):
-        if not self.vertices[key] and not self.vertices[value]:
-            raise KeyError
-        else:
+        if key in self.vertices and value in self.vertices:
             self.vertices[key].add(value)
             self.vertices[value].add(key)
+        else:
+            raise KeyError
 
     def show_graph(self):
         return self.vertices
@@ -83,6 +83,21 @@ class Graph:
                 orderedVisit.append(neighbor)
                 self.depth_first_traversal_recursion(neighbor, visited, orderedVisit)
         return orderedVisit
+
+    def dfs_recursive(self, start, target, visited=set(), path=[]):
+        visited.add(start)
+        path += [start]
+
+        # if current node is equal to target node, stop
+        if start == target:
+            return path
+
+        for neighbors in self.vertices[start]:
+            if neighbors not in visited:
+               new_path = self.dfs_recursive(neighbors, target, visited, path)
+               if new_path:
+                   return new_path
+        return None
                 
 
 
@@ -137,7 +152,11 @@ g = Graph()
 
 # g.breadth_first_traversal('1')
 # g.depth_first_traversal('1')
-print(g.depth_first_traversal_recursion('1'))
+# print(g.depth_first_traversal_recursion('1'))
 # print(g.breadth_first_search("1", "15"))
 # print(g.depth_first_search("1", "5"))
 # g.depth_first_traversal_recursion('1')
+# g.add_vertex(20)
+# g.add_edge_undirected(4,3)
+# print(g.show_graph())
+print(g.dfs_recursive('1', '13'))

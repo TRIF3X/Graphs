@@ -1,4 +1,4 @@
-
+import random
 
 class User:
     def __init__(self, name):
@@ -19,6 +19,7 @@ class SocialGraph:
         elif friendID in self.friendships[userID] or userID in self.friendships[friendID]:
             print("WARNING: Friendship already exists")
         else:
+            # add friendship to both users
             self.friendships[userID].add(friendID)
             self.friendships[friendID].add(userID)
 
