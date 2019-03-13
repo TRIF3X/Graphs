@@ -122,7 +122,10 @@ class SocialGraph:
 
 if __name__ == '__main__':
     sg = SocialGraph()
-    sg.populateGraph(10, 2)
+    sg.populateGraph(20, 3)
+    # for i in range(1,21):
+    #     sg.addUser(i)
+    # sg.friendships = {1: {2, 4}, 2: {1}, 3: {4}, 4: {1, 3, 5}, 5: {8, 4, 6, 7}, 6: {9, 10, 12, 5}, 7: {5}, 8: {10, 11, 12, 5}, 9: {6}, 10: {8, 12, 6}, 11: {8}, 12: {8, 10, 13, 6}, 13: {16, 17, 12}, 14: {16, 17}, 15: set(), 16: {13, 14, 17, 18, 19, 20}, 17: {13, 14, 16, 18, 19, 20}, 18: {16, 17, 19, 20}, 19: {16, 17, 18, 20}, 20: {16, 17, 18, 19}}
     print(sg.friendships)
     connections = sg.getAllSocialPaths(1)
     print(connections)
