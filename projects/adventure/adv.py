@@ -27,6 +27,11 @@ visited = {}
 traversalPath = []
 # while our visited dict is smamller than the actual number of rooms in our maze, keep going
 while len(visited) < len(world.rooms):
+    queue = [[player.currentRoom.id]]
+    # intialize first room
+    visited[player.currentRoom.id] = { 'n': '?', 'e': '?', 's': '?', 'w': '?' }
+    # find all possible rooms to explore from current spot
+    print(player.currentRoom.getExits())
     break
 
 
@@ -43,10 +48,12 @@ for move in traversalPath:
 
 if len(visited_rooms) == len(roomGraph):
     print(f"TESTS PASSED: {len(traversalPath)} moves, {len(visited_rooms)} rooms visited")
-    print(traversalPath)
+    print('our traversal path', traversalPath)
+    print('rooms visited', visited)
 else:
     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
-    print(traversalPath)
+    print('our traversal path', traversalPath)
+    print('rooms visited', visited)
     print(f"{len(roomGraph) - len(visited_rooms)} unvisited rooms")
 
 
