@@ -43,8 +43,10 @@ for move in traversalPath:
 
 if len(visited_rooms) == len(roomGraph):
     print(f"TESTS PASSED: {len(traversalPath)} moves, {len(visited_rooms)} rooms visited")
+    print(traversalPath)
 else:
     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
+    print(traversalPath)
     print(f"{len(roomGraph) - len(visited_rooms)} unvisited rooms")
 
 
