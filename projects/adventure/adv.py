@@ -23,35 +23,53 @@ world.printRooms()
 
 # holds the current rooms visited and their directions
 visited = {}
+# init our first room
+visited[player.currentRoom.id] = { x: '?' for x in player.currentRoom.getExits() }
 # holds our path to traverse the maze
 traversalPath = []
-# A dictionary holding the opposite directions for when we need to go back
-back_track = { 'n': 's', 's': 'n', 'e': 'w', 'w': 'e' }
-# keep track of the room
-track_room = player.currentRoom.id
+# A function that will return the opposite of where we came
+def back_track(direction):
+    if direction == 'n':
+        return 's'
+    elif direction == 's':
+        return 'n'
+    elif direction == 'w':
+        return 'e'
+    elif direction == 'e':
+        return 'w'
 # find all possible rooms to explore from current spot
 exits = player.currentRoom.getExits()
 # while our visited dict is smamller than the actual number of rooms in our maze, keep going
 while len(visited) < len(world.rooms):
 
-    # if current room is not already visited, add it
-    if player.currentRoom.id not in visited:
-        visited[player.currentRoom.id] = { x: '?' for x in player.currentRoom.getExits() }
-
     # check to see if we haven't explored a direction from the current room
     if '?' in visited[player.currentRoom.id].values():
         next_move = None
-        track_room
+        # returns the room we are starting in
+        start_room = player.currentRoom.id
 
         # check rooms that are unexplored
-        if 'n' in visited[track_room] and visited[track_room]['n'] == '?'
+        if 'n' in visited[start_room] and visited[start_room]['n'] == '?':
             next_move = 'n'
-        if 'e' in visited[track_room] and visited[track_room]['e'] == '?'
+        if 'e' in visited[start_room] and visited[start_room]['e'] == '?':
             next_move = 'e'
-        if 's' in visited[track_room] and visited[track_room]['s'] == '?'
+        if 's' in visited[start_room] and visited[start_room]['s'] == '?':
             next_move = 's'
-        if 'w' in visited[track_room] and visited[track_room]['w'] == '?'
+        if 'w' in visited[start_room] and visited[start_room]['w'] == '?':
             next_move = 'w'
+        
+        player.travel(next_move)
+
+        # will return the current room we are in after we have traveled
+        next_room = player.currentRoom.id
+
+        # if current room is not already visited, add it
+        if player.currentRoom.id not in visited:
+            visited[player.currentRoom.id] = { x: '?' for x in player.currentRoom.getExits() }
+
+        # assign our directions in visted to our rooms
+        visited[start_room][next_move] = next_room
+        visited[next_room][back_track(next_move)] = start_room
 
     break
 
