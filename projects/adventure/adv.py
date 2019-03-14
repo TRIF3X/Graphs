@@ -77,8 +77,17 @@ while len(visited) < len(world.rooms):
     else:
         start = player.currentRoom.id
         queue = []
+
         for move, room in visited[start].items():
-            print(move, room)
+            queue.append([move, room])
+        print(queue)
+
+        while len(queue) > 0:
+            paths = queue.pop(0)
+            current_move = paths[-1]
+
+            if '?' in visited[]
+
         break
 
     # if in a room where there's no other exits besides the way we came in, we know we're at a dead end
