@@ -63,6 +63,9 @@ while len(visited) < len(world.rooms):
         # will return the current room we are in after we have traveled
         next_room = player.currentRoom.id
 
+        # add our moves to the traversal path
+        traversalPath.append(next_move)
+
         # if current room is not already visited, add it
         if player.currentRoom.id not in visited:
             visited[player.currentRoom.id] = { x: '?' for x in player.currentRoom.getExits() }
@@ -75,7 +78,6 @@ while len(visited) < len(world.rooms):
 
     # if in a room where there's no other exits besides the way we came in, we know we're at a dead end
 
-    # when we enter a room we need to update '?' in visited with the room number. Both in the previous room and the current room
 
 
 
