@@ -23,15 +23,26 @@ world.printRooms()
 
 # holds the current rooms visited and their directions
 visited = {}
-# initalize the map
-visited[player.currentRoom.id] = { x: '?' for x in player.currentRoom.getExits() }
 # holds our path to traverse the maze
 traversalPath = []
+# A dictionary holding the opposite directions for when we need to go back
+back_track = { 'n': 's', 's': 'n', 'e': 'w', 'w': 'e' }
+# keep track of the previous room
+previous_room = player.currentRoom.id
 # while our visited dict is smamller than the actual number of rooms in our maze, keep going
 while len(visited) < len(world.rooms):
+
+    # if current room is not already visited, add it
+    if player.currentRoom.id not in visited:
+        visited[player.currentRoom.id] = { x: '?' for x in player.currentRoom.getExits() }
+
     # find all possible rooms to explore from current spot
     print(player.currentRoom.getExits())
     break
+
+    # if in a room where there's no other exits besides the way we came in, we know we're at a dead end
+
+    # when we enter a room we need to update '?' in visited with the room number. Both in the previous room and the current room
 
 
 
