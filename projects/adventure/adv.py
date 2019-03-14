@@ -37,7 +37,10 @@ while len(visited) < len(world.rooms):
         visited[player.currentRoom.id] = { x: '?' for x in player.currentRoom.getExits() }
 
     # find all possible rooms to explore from current spot
-    print(player.currentRoom.getExits())
+    exits = player.currentRoom.getExits()
+    if '?' in visited[player.currentRoom.id].values():
+        print('unexplored')
+
     break
 
     # if in a room where there's no other exits besides the way we came in, we know we're at a dead end
