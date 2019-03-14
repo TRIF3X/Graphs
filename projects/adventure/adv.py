@@ -20,6 +20,27 @@ player = Player("Name", world.startingRoom)
 
 world.printRooms()
 
+def breadth_first_search(self, start, target):
+    queue = [[start]]
+    visited = set()
+        
+    while queue:
+        path = queue.pop(0)
+
+        vertex = path[-1]
+
+        if vertex == target:
+            return path
+
+        elif vertex not in visited:
+            for next_ in self.vertices.get(vertex, []):
+                new_path = list(path)
+                new_path.append(next_)
+                queue.append(new_path)
+            visited.add(vertex)
+
+
+
 
 # holds the current rooms visited and their directions
 visited = {}
@@ -32,6 +53,10 @@ while len(visited) < len(world.rooms):
     visited[player.currentRoom.id] = { 'n': '?', 'e': '?', 's': '?', 'w': '?' }
     # find all possible rooms to explore from current spot
     print(player.currentRoom.getExits())
+    player.travel('n')
+    print('2nd', player.currentRoom.id)
+    print('2nd', player.currentRoom.getExits())
+    visited[player.currentRoom.id] = { 'n': '?', 'e': '?', 's': '?', 'w': '?' }
     break
 
 
