@@ -27,8 +27,10 @@ visited = {}
 traversalPath = []
 # A dictionary holding the opposite directions for when we need to go back
 back_track = { 'n': 's', 's': 'n', 'e': 'w', 'w': 'e' }
-# keep track of the previous room
-previous_room = player.currentRoom.id
+# keep track of the room
+track_room = player.currentRoom.id
+# find all possible rooms to explore from current spot
+exits = player.currentRoom.getExits()
 # while our visited dict is smamller than the actual number of rooms in our maze, keep going
 while len(visited) < len(world.rooms):
 
@@ -36,10 +38,20 @@ while len(visited) < len(world.rooms):
     if player.currentRoom.id not in visited:
         visited[player.currentRoom.id] = { x: '?' for x in player.currentRoom.getExits() }
 
-    # find all possible rooms to explore from current spot
-    exits = player.currentRoom.getExits()
+    # check to see if we haven't explored a direction from the current room
     if '?' in visited[player.currentRoom.id].values():
-        print('unexplored')
+        next_move = None
+        track_room
+
+        # check rooms that are unexplored
+        if 'n' in visited[track_room] and visited[track_room]['n'] == '?'
+            next_move = 'n'
+        if 'e' in visited[track_room] and visited[track_room]['e'] == '?'
+            next_move = 'e'
+        if 's' in visited[track_room] and visited[track_room]['s'] == '?'
+            next_move = 's'
+        if 'w' in visited[track_room] and visited[track_room]['w'] == '?'
+            next_move = 'w'
 
     break
 
